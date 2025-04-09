@@ -12,7 +12,12 @@ const pageControllers = require('./controllers/pageControllers')
 app.set('view engine', 'ejs');
 
 //Connect DB
-mongoose.connect('mongodb://localhost/pcat-test-db');
+mongoose.connect('mongodb+srv://enverbilalbirinci:hIRvbM5WXmXzbCIk@envercluster.hsvipyz.mongodb.net/?retryWrites=true&w=majority&appName=Envercluster')
+.then(()=> {
+  console.log('DB Bağlantısı gerçekleşti')
+}).catch(()=> {
+  console.log(err)
+});
 
 //Middlerwares
 app.use(express.static('public'));
@@ -36,7 +41,7 @@ app.get('/about', pageControllers.getAboutPage);
 app.get('/add', pageControllers.getAddPage);
 app.get('/photos/edit/:id', pageControllers.getEditPage);
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Sunucu ${port} portunda başlatıldı.`);
 });
